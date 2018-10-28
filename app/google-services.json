@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "970627728574",
+    "firebase_url": "https://facerecognition-c63bb.firebaseio.com",
+    "project_id": "facerecognition-c63bb",
+    "storage_bucket": "facerecognition-c63bb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:970627728574:android:0fdf8d8ce7339207",
+        "android_client_info": {
+          "package_name": "com.example.irteza.facerecognition"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "970627728574-0l4j9j8o3gu6n9emjr5o4h323hta92oo.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.irteza.facerecognition",
+            "certificate_hash": "8844dcfd9e2978c192806e7f8d50ad8d1ff4f7af"
+          }
+        },
+        {
+          "client_id": "970627728574-t16epqgi643h9e1305nfttv22ru2jrpf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC6UP6FkRNUxMPM3S6bgLH3SSgjlWmAwnI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "970627728574-t16epqgi643h9e1305nfttv22ru2jrpf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
