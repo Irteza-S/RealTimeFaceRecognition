@@ -3,8 +3,10 @@ package com.example.irteza.facerecognition;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Camera;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.media.Image;
@@ -40,11 +42,13 @@ import com.google.firebase.ml.vision.face.FirebaseVisionFaceLandmark;
 import com.otaliastudios.cameraview.CameraException;
 import com.otaliastudios.cameraview.CameraListener;
 import com.otaliastudios.cameraview.CameraView;
+import com.otaliastudios.cameraview.Facing;
 import com.otaliastudios.cameraview.Frame;
 import com.otaliastudios.cameraview.FrameProcessor;
 import com.otaliastudios.cameraview.Size;
 
 
+import java.io.ByteArrayOutputStream;
 import java.util.List;
 
 
@@ -53,14 +57,11 @@ import dmax.dialog.SpotsDialog;
 
 public class MainActivity extends AppCompatActivity {
 
-
     CameraView cameraView;
     GraphicOverlay graphicOverlay;
-    Button btnDetect;
-    FirebaseVisionPoint object;
-    Bitmap bitmap;
-    Canvas canvas;
-    Paint paint;
+    Button swapCam;
+    static Boolean isFacingFront;
+
 
 
     android.app.AlertDialog waitingDialog;
@@ -84,15 +85,33 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
+        isFacingFront = true;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         cameraView = (CameraView)findViewById(R.id.camera_view);
-        btnDetect = (Button)findViewById(R.id.btn_detect);
         graphicOverlay = (GraphicOverlay) findViewById(R.id.graphic_overlay);
         waitingDialog = new SpotsDialog.Builder().setContext(this)
                 .setMessage("Please wait")
                 .setCancelable(false)
                 .build();
+
+        cameraView.setFacing(Facing.FRONT);
+        swapCam = (Button) findViewById(R.id.btn_detect);
+        swapCam.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                if(isFacingFront==true)
+                {
+                    cameraView.setFacing(Facing.BACK);
+                    isFacingFront=false;
+                }
+                else
+                {
+                    cameraView.setFacing(Facing.FRONT);
+                    isFacingFront=true;
+                }
+            }
+        });
+
 
         cameraView.addFrameProcessor(new FrameProcessor() {
                                          @Override
@@ -100,15 +119,16 @@ public class MainActivity extends AppCompatActivity {
                                          public void process(Frame frame)
                                          {
                                                 graphicOverlay.clear();
+
                                                  byte[] data = frame.getData();
                                                  int rotation = frame.getRotation();
                                                  long time = frame.getTime();
                                                  Size size = frame.getSize();
                                                  int format = frame.getFormat();
 
+
                                                  FirebaseVisionFaceDetectorOptions options = new FirebaseVisionFaceDetectorOptions.Builder()
                                                          .setPerformanceMode(FirebaseVisionFaceDetectorOptions.FAST)
-                                                         .setLandmarkMode(FirebaseVisionFaceDetectorOptions.ALL_LANDMARKS)
                                                          .setContourMode(FirebaseVisionFaceDetectorOptions.ALL_CONTOURS)
                                                          .build();
 
@@ -219,12 +239,15 @@ public class MainActivity extends AppCompatActivity {
                 //System.out.println("?????>>>>>>>>>>>>>>>>?????????");
                 //object = firebaseVisionFaces.get(0).getLandmark(FirebaseVisionFaceLandmark.LEFT_EYE).getPosition();
                 //System.out.println("X :"+object.getX() +" Y :" +object.getY() +" Z :" +object.getZ());
+
+                //System.out.println("?????>>>>>>>>>>>>>>>>?????????");
                 //System.out.println(contour.getPoints());
                 //System.out.println("?????>>>>>>>>>>>>>>>>?????????");
                 FirebaseVisionFaceContour contour = firebaseVisionFaces.get(0).getContour(FirebaseVisionFaceContour.ALL_POINTS);
                 waitingDialog.dismiss();
 
                 //Drawing points
+
                 canvas = new Canvas(bitmap);
                 paint = new Paint();
                 paint.setStyle(Paint.Style.FILL);

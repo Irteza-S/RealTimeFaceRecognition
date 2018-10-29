@@ -8,22 +8,26 @@
 
     <Button
         android:id="@+id/btn_detect"
-        android:text="DETECT"
+        android:text="Swap Camera"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <com.otaliastudios.cameraview.CameraView
         android:id="@+id/camera_view"
+        android:layout_width="359dp"
+        android:layout_height="466dp"
         android:layout_above="@+id/btn_detect"
-        android:layout_height="match_parent"
-        android:layout_width="match_parent"
-        app:cameraFacing="front"
-        ></com.otaliastudios.cameraview.CameraView>
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="46dp"
+        tools:ignore="MissingConstraints"></com.otaliastudios.cameraview.CameraView>
 
     <com.example.irteza.facerecognition.Helper.GraphicOverlay
         android:id="@+id/graphic_overlay"
+        android:layout_width="383dp"
+        android:layout_height="619dp"
         android:layout_above="@+id/btn_detect"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="46dp"
+        tools:ignore="MissingConstraints" />
 
 </android.support.constraint.ConstraintLayout>
