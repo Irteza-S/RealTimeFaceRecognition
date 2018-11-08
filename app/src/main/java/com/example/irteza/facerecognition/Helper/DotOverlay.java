@@ -38,10 +38,10 @@ public class DotOverlay extends GraphicOverlay.Graphic
     {
         for(int i=0; i<dotsArray.size(); i++)
         {
-           // float x = translateX(dotsArray.get(i).getX());
-            //float y = translateY(dotsArray.get(i).getY());
-            canvas.drawCircle(dotsArray.get(i).getX() + 19 , dotsArray.get(i).getY() - 10, 3, dotPaint);
-          //  canvas.drawCircle(x , y, 3, dotPaint);
+            float x = translateX(dotsArray.get(i).getX());
+            float y = translateY(dotsArray.get(i).getY());
+          //  canvas.drawCircle(dotsArray.get(i).getX() + 19 , dotsArray.get(i).getY() - 10, 3, dotPaint);
+            canvas.drawCircle(x , y, 3, dotPaint);
         }
     }
 }
